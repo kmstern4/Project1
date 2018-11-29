@@ -1,56 +1,86 @@
-// Firebase initialization
-var config = {
-    apiKey: "AIzaSyBWh8dV01ACirfiAi9BzD2WgEPJxLTVbtM",
-    authDomain: "project1-b0016.firebaseapp.com",
-    databaseURL: "https://project1-b0016.firebaseio.com",
-    projectId: "project1-b0016",
-    storageBucket: "project1-b0016.appspot.com",
-    messagingSenderId: "278617804793"
-};
-firebase.initializeApp(config);
+var geoLocation;
+var cinemaLocation;
+var lat;
+var long;
+// Pull values from location form .val().trim();
 
-var database = firebase.database();
+// location = location.split(" ").join("+");
 
-// Pull values from location and name forms .val().trim();
-var location = "";
-var name = "";
 
-//on click function to open second page and launch traitify quiz
+//on click function for submit button
+$("#submit").on("click", function () {
+    var location = $("#input-location").val().trim();
+    console.log(location);
 
-$("#placeholder").on("click", function(){ 
-
-    //Open a second page
-
-    //Run Ajax traitify 
-
-    //ajax function for traitify api
-        var traitifyUrl = "";
-
+    //Geocode ajax to convert address to lat and long
     $.ajax({
-        method: "GET",
-        url: traitifyUrl  
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyC7cYVBuDvtxBDLzn62sHS0VlrDUf-WJMU",
+        method: "GET"
     }).then(function(response) {
-        console.log(response);
-    });
+        console.log(response.results[0].geometry.location);
+        lat = response.results[0].geometry.location.lat;
+        console.log(lat);
+        long = response.results[0].geometry.location.lng;
+        console.log(long);
+        geoLocation = lat+";"+long;
+    
 
-    //Store the traitify response dealing with reccommended jobs in firebase?
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://cors-anywhere.herokuapp.com/https://api-gate.movieglu.com/filmsNowShowing/?n=10",
+        "method": "GET",
+        "headers": {
+          "client": "JODP",
+          "x-api-key": "Uv2verHbVxaoEn6wULwZA7CSzalosEUMItrLOngc",
+          "api-version": "v102",
+          "Authorization": "Basic Sk9EUDowU3NaR0RNWWl1Y1o=",
+          "Geolocation": geoLocation,
+          "cache-control": "no-cache",
+        }
+      }
+      
+      $.ajax(settings).done(function (response1) {
+        console.log(response1.films[0].film_id);
+        var movieArray = response1.films;
+            for (var i = 0; i < movieArray.length; i++) {
+                var filmName = movieArray[i].film_name;
+                var filmId = movieArray[i].film_id;
+                var newButton=$("<button>").text(filmName).attr("id", filmId).addClass("film-button");
+                $("#new-button").append(newButton);
+
+            }
+
+      });
+    })
+    $("#submit").off()
 });
 
-//When quiz is finished load 3rd page with results
+$(document).on("click", ".film-button", function(event) {
+    event.preventDefault();
+    console.log(lat + ";" + long);
+    // console.log(parseFloat(geoLocation));
+    //Call film_id from the appended buttons and place in URL
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://cors-anywhere.herokuapp.com/https://api-gate2.movieglu.com/closestShowing/?film_id=197406",
+        "method": "GET",
+        "headers": {
+          "client": "JODP",
+          "x-api-key": "Uv2verHbVxaoEn6wULwZA7CSzalosEUMItrLOngc",
+          "api-version": "v102",
+          "Authorization": "Basic Sk9EUDowU3NaR0RNWWl1Y1o=",
+          "Geolocation": lat + ";" + long,
+        //   "lat": lat,
+        //   "lng": long,
+          "cache-control": "no-cache",
+          "territory": "US"
+        }
+    }
 
-    //Place traitify reccommended jobs and username on page
-
-    //Create an on click or on load function to run Indeed api and list top results on page
-
-    // ajax function for indeed api
-        var jobUrl = "" + //var location + var quizJobs;
-
-    $.ajax({
-        method: "GET",
-        url: jobUrl
-    }).then(function(response) {
-        console.log(response);
-    }); 
-
-
-
+    $.ajax(settings).done(function (response2) {
+        console.log(response2)
+    })
+        
+});
