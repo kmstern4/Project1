@@ -1,0 +1,66 @@
+/* Colors */
+/* #9A1212  dark red*/
+/* #302A2A  gray*/
+/* #CBB7B7  silver*/
+/* #D9B63C  gold*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #9a1212;
+}
+
+.header {
+    background: #302a2a;
+    color: #cbb7b7;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.container {
+    color: #FBFCFC;
+    text-align: center;
+    margin-top: 40px;
+    padding: 15px;
+}
+
+input[type="text"] {
+    width: 200px;
+    background-color: #FBFCFC; 
+}
+
+#submit {
+    margin-top: 20px;
+    border:1px solid #b99824; 
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size:12px;
+    font-family:arial, helvetica, sans-serif; 
+    text-decoration:none; 
+    display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    font-weight:bold; 
+    color: #ffffff;
+    background-color: #D9B63C; 
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#D9B63C), to(#B59736));
+    background-image: -webkit-linear-gradient(top, #D9B63C, #B59736);
+    background-image: -moz-linear-gradient(top, #D9B63C, #B59736);
+    background-image: -ms-linear-gradient(top, #D9B63C, #B59736);
+    background-image: -o-linear-gradient(top, #D9B63C, #B59736);
+    background-image: linear-gradient(to bottom, #D9B63C, #B59736);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#D9B63C, endColorstr=#B59736);
+}
+
+#submit:hover {
+    border:1px solid #92781d;
+    background-color: #bd9b25; 
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#bd9b25), to(#8e762a));
+    background-image: -webkit-linear-gradient(top, #bd9b25, #8e762a);
+    background-image: -moz-linear-gradient(top, #bd9b25, #8e762a);
+    background-image: -ms-linear-gradient(top, #bd9b25, #8e762a);
+    background-image: -o-linear-gradient(top, #bd9b25, #8e762a);
+    background-image: linear-gradient(to bottom, #bd9b25, #8e762a);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#bd9b25, endColorstr=#8e762a);
+}
