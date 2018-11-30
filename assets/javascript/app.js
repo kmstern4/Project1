@@ -22,7 +22,7 @@ $("#submit").on("click", function () {
         long = response.results[0].geometry.location.lng;
         console.log(long);
         geoLocation = lat+";"+long;
-
+    })
     
        //This is the ajax call on gracenote API using the lat and long variables
         $.ajax({
