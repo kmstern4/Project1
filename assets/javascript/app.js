@@ -7,7 +7,7 @@ var long;
 //on click function for submit button
 $("#submit").on("click", function () {
     var date = $("#input-date").val().trim();
-    moment(date).format('YYYY-MM-DD');
+    // var newDate = moment(date, "YYYY-MM-DD");
     var location = $("#input-location").val().trim();
     console.log(date);
 
@@ -29,6 +29,15 @@ $("#submit").on("click", function () {
         method: "GET"
     }).then(function (response) {
         console.log(response);
+
+        var movieArray = response.films;
+            for (var i = 0; i < 10; i++) {
+                var filmName = movieArray[i].title;
+                var theater = movieArray[i].showtimes[0].theatre.name;
+                var newButton=$("<button>").text(filmName).attr("id", theater).addClass("film-button");
+                $("#submit").append(newButton);
+
+            }
     });
 
 
