@@ -1,48 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <link href="assets/css/reset.css" type="text/css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" type="text/css" rel="stylesheet">
-        <link href="assets/css/style.css" type="text/css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="assets/css/reset.css" type="text/css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" type="text/css" rel="stylesheet">
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+</head>
 
-        <header></header>
+<body>
 
-        <div class="container">
-            <div class="row">
-                <div class="one-half column" id="results-user">
-                    <p id="user-name">lorem ipsum</p>
-                    <p id="user-location">lorem ipsum</p>
+    <div class="row">
+        <div class="twelve columns header">
+            <h1>Dinner & A Movie</h1>
+        </div>
+    </div>
 
-                </div>
-                <div class="one-half column" id="results-personality">
+    <div class="container dinner-container">
 
-                </div>
+        <div class="row">
+            <div class="twelve columns">
+                <h2>Restaurants Nearby</h2>
+                <h2 id="theater-name">Theater Name</h2>
             </div>
-
-            <div class="row">
-                    <div class="one-half column" id="results-careers">
-    
-                    </div>
-                    <div class="one-half column" id="results-indeed">
-
-                    </div>
-            </div>
-
-               
         </div>
 
-        <footer></footer>
+        <div class="row">
+            <div class="six columns" id="dinner-results">
+                <p>Restaurant Name</p>
+                <p>Cuisine Type</p>
+            </div>
+
+            <div class="six columns" id="dinner-info">
+                <p>Restaurant Name</p>
+                <p>Address</p>
+                <p>Menu Link</p>
+                <p>Rating</p>
+                <p>Price Range</p>
+            </div>
+        </div>
+
         
+
+
+    </div>
+
+    <footer></footer>
+
     <script src="assets/javascript/app.js"></script>
-    </body>
+</body>
 
 </html>
