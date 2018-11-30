@@ -26,7 +26,7 @@ $("#submit").on("click", function () {
     
        //This is the ajax call on gracenote API using the lat and long variables
         $.ajax({
-            url: "http://data.tmsapi.com/v1.1/movies/showings?startDate=" + date + "&lat=" + lat + "&lng=" + long + "&api_key=ebxmggvfebvqkmhczkwvzxk4",
+            url: "https://data.tmsapi.com/v1.1/movies/showings?startDate="+date+"&zip="+location+"&api_key=ebxmggvfebvqkmhczkwvzxk4",
             method: "GET"
         }).then(function(response) {
             console.log(response);
