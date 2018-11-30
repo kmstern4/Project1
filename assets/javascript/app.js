@@ -48,11 +48,24 @@ $("#submit").on("click", function () {
 $(document).on("click", ".film-button", function () {
     var theater = $(this).attr("id");
     var time = $(this).attr("data-date");
-    $("test-div").empty();
+    $("#test-div").empty();
     console.log(showTimes);
+    var newP = $("<div id='movie-results'>").append(
+        $("<p>").text(theater),
+        $("<p>").text(showTimes[0]),
+        $("<p>").text(showTimes[1]),
+        $("<p>").text(showTimes[2])
+    );
+    $("#test-div").append(newP);
 
 
-    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=40.742051&lon=-74.004821";
+
+
+});
+
+$(document).on("click", "#movie-results", function () {
+
+    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long + "&sort=aggregate_rating";
 
     var settings = {
         "url": queryURL,
@@ -64,9 +77,22 @@ $(document).on("click", ".film-button", function () {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-    })
-
+        console.log("dogs");
+        $("#test-div").empty();
+    });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
