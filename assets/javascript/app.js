@@ -34,25 +34,39 @@ $("#submit").on("click", function () {
 
         //prints 10 buttons of movie selections
         var movieArray = response;
-            for (var i = 0; i < 10; i++) {
-                var filmName = movieArray[i].title;
-                var theater = movieArray[i].showtimes[0].theatre.name;
-                var showtime = movieArray[i].showtimes[0].dateTime;
-                showTimes.push(showtime);
-                var newButton=$("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
-                $("#test-div").append(newButton);
-            }
+        for (var i = 0; i < 10; i++) {
+            var filmName = movieArray[i].title;
+            var theater = movieArray[i].showtimes[0].theatre.name;
+            var showtime = movieArray[i].showtimes[0].dateTime;
+            showTimes.push(showtime);
+            var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
+            $("#test-div").append(newButton);
+        }
     });
 });
 //testing: this is to append the 2nd stage where movie buttons are replaced by selected movies, associated theater and show times, still needs work.
 $(document).on("click", ".film-button", function () {
-        var theater = $(this).attr("id");
-        var time = $(this).attr("data-date");
-        $("test-div").empty();
-        console.log(showTimes);
+    var theater = $(this).attr("id");
+    var time = $(this).attr("data-date");
+    $("test-div").empty();
+    console.log(showTimes);
+
+
+    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=40.742051&lon=-74.004821";
+
+    var settings = {
+        "url": queryURL,
+        "method": "GET",
+        "headers": {
+            "user-key": "10bbf65b13ae378a2323cf3b8c13c49f"
+        }
+    }
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    })
+
+
 });
-
-
-
 
 
