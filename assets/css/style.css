@@ -27,6 +27,10 @@ body {
     padding: 15px;
 }
 
+h2 {
+    margin-bottom: 0px;
+}
+
 input[type="text"] {
     width: 200px;
     background-color: #FBFCFC; 
@@ -78,7 +82,6 @@ input[type="text"] {
 .movie-box{
     background:#302a2a;
     color: #FBFCFC;
-    /* padding: 40px; */
     margin: 30px 15% 0 15%;
     text-align: left;
     border:3px solid #cbb7b7;
@@ -102,5 +105,40 @@ input[type="text"] {
 
 .theater-address {
     margin-bottom: 0px;
+}
 
+/* dinner specific css */
+
+.dinner-box {
+    background:#302a2a;
+    color: #FBFCFC;
+    margin: 30px 15% 0 15%;
+    text-align: left;
+    border:3px solid #cbb7b7;
+    border-radius: 1px;
+}
+
+.dinner-results {
+    padding: 15px 15px 15px 30px;
+    border-bottom: 1px solid #cbb7b7;
+}
+
+.dinner-info {
+    border-left: 1px solid #cbb7b7;
+    margin-left: 0px;
+    padding: 15px 15px 15px 30px;
+}
+
+.dinner-name {
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.dinner-cuisine {
+    color: #D9B63C;
+    margin-bottom: 0px;
+}
+
+.dinner-address {
+    margin-top: 2.5rem;
 }
