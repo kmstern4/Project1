@@ -17,6 +17,7 @@ body {
     color: #cbb7b7;
     text-align: center;
     padding-top: 20px;
+    border-bottom: 3px solid #cbb7b7;
 }
 
 .container {
@@ -30,6 +31,8 @@ input[type="text"] {
     width: 200px;
     background-color: #FBFCFC; 
 }
+
+/* index specific css */
 
 #submit {
     margin-top: 20px;
@@ -63,4 +66,41 @@ input[type="text"] {
     background-image: -o-linear-gradient(top, #bd9b25, #8e762a);
     background-image: linear-gradient(to bottom, #bd9b25, #8e762a);
     filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#bd9b25, endColorstr=#8e762a);
+}
+
+/* movie specific css */
+
+#movie-dropdown{
+    width:400px;
+    font-size: 16px;
+}
+
+.movie-box{
+    background:#302a2a;
+    color: #FBFCFC;
+    /* padding: 40px; */
+    margin: 30px 15% 0 15%;
+    text-align: left;
+    border:3px solid #cbb7b7;
+    border-radius: 1px;
+}
+
+.theater-text{
+    border-bottom: 1px solid #cbb7b7;
+    padding: 30px;
+}
+
+.theater-title {
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.showtimes {
+    color: #D9B63C;
+    margin-bottom: 0px;
+}
+
+.theater-address {
+    margin-bottom: 0px;
+
 }
