@@ -26,10 +26,18 @@ body {
     font-family: "Oleo Script", "cursive";
     text-shadow: 3px 5px 2px #1b1717;
     box-shadow: 0px 3px 8px #1b1717;
+    position: relative;
 }
 
 h1 {
     font-size: 60px;
+    cursor: pointer;
+    color: #cbb7b7;
+    text-decoration: none;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
 }
 
 .container {
@@ -41,6 +49,10 @@ h1 {
 
 h2 {
     margin-bottom: 0px;
+}
+
+#welcome-text {
+    margin-bottom: 30px;
 }
 
 input[type="text"] {
@@ -59,7 +71,8 @@ input[type="text"] {
     font-size:12px;
     font-family:arial, helvetica, sans-serif; 
     text-decoration:none; 
-    display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    display:inline-block;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
     font-weight:bold; 
     color: #ffffff;
     background-color: #D9B63C; 
@@ -98,6 +111,7 @@ input[type="text"] {
     text-align: left;
     border:3px solid #cbb7b7;
     border-radius: 1px;
+    box-shadow: 3px 3px 8px #1b1717;
 }
 
 .theater-text{
