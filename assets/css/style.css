@@ -4,12 +4,17 @@
 /* #CBB7B7  silver*/
 /* #D9B63C  gold*/
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Oleo+Script:700');
+
 * {
     box-sizing: border-box;
 }
 
 body {
-    background: #9a1212;
+    background-image: radial-gradient(#9a1212, #750e0e, #520909);
+    font-family: "Montserrat", "sans-serif";
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .header {
@@ -18,6 +23,13 @@ body {
     text-align: center;
     padding-top: 20px;
     border-bottom: 3px solid #cbb7b7;
+    font-family: "Oleo Script", "cursive";
+    text-shadow: 3px 5px 2px #1b1717;
+    box-shadow: 0px 3px 8px #1b1717;
+}
+
+h1 {
+    font-size: 60px;
 }
 
 .container {
@@ -116,6 +128,7 @@ input[type="text"] {
     text-align: left;
     border:3px solid #cbb7b7;
     border-radius: 1px;
+    box-shadow: 3px 3px 8px #1b1717;
 }
 
 .dinner-results {
