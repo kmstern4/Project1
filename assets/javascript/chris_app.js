@@ -1,3 +1,16 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBWh8dV01ACirfiAi9BzD2WgEPJxLTVbtM",
+    authDomain: "project1-b0016.firebaseapp.com",
+    databaseURL: "https://project1-b0016.firebaseio.com",
+    projectId: "project1-b0016",
+    storageBucket: "project1-b0016.appspot.com",
+    messagingSenderId: "278617804793"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 
 var geoLocation;
 var cinemaLocation;
@@ -32,54 +45,49 @@ $("#submit").on("click", function () {
     }).then(function (response) {
         console.log(response);
 
+
         //prints 10 buttons of movie selections
-        var movieArray = response;
+        // var movieArray = response;
+        // for (var i = 0; i < 10; i++) {
+        //     var filmName = movieArray[i].title;
+        //     var theater = movieArray[i].showtimes[0].theatre.name;
+        //     var showtime = movieArray[i].showtimes[0].dateTime;
+        //     showTimes.push(showtime);
+        //     var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
+        //     $("#test-div").append(newButton);
+        // }
+        var movieList = [];
         for (var i = 0; i < 10; i++) {
-            var filmName = movieArray[i].title;
-            var theater = movieArray[i].showtimes[0].theatre.name;
-            var showtime = movieArray[i].showtimes[0].dateTime;
-            showTimes.push(showtime);
-            var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
-            $("#test-div").append(newButton);
-        }
+            // console.log(snapshot.val()[i]);
+            var title = snapshot.val()[i].title;
+            movieList[i] = title;
+
+            for (var j = 0; j < snapshot.val()[i].showtimes.length; j++) {
+                var showDate = snapshot.val()[i].showtimes[j].dateTime.substr(0, 10);
+                var showTime = snapshot.val()[i].showtimes[j].dateTime.substr(11, 6);
+                var theatreID = snapshot.val()[i].showtimes[j].theatre.id;
+                var theatreName = snapshot.val()[i].showtimes[j].theatre.name;
+
+                // push the json data into firebase
+                database.ref('/movieTitle').push({
+                    title: title,
+                    showDate: showDate,
+                    showTime: showTime,
+                    theatreID: theatreID,
+                    theatreName: theatreName
+                });
+            }
+        }; // end for(var i)
+        console.log(movieList);
+        // push the json data of movie List into firebase
+        database.ref('/movieList').push({
+            movieList: movieList
+        });
+
     });
 });
-//testing: this is to append the 2nd stage where movie buttons are replaced by selected movies, associated theater and show times, still needs work.
-$(document).on("click", ".film-button", function () {
-    var theater = $(this).attr("id");
-    var time = $(this).attr("data-date");
-    $("#test-div").empty();
-    console.log(showTimes);
-    // str.substr(11, 6);
-    var newP = $("<div id='movie-results'>").append(
-        $("<p>").text(theater),
-        $("<p>").text(showTimes[0].substr(11, 6)),
-        $("<p>").text(showTimes[1].substr(11, 6)),
-        $("<p>").text(showTimes[2].substr(11, 6))
-    );
-    $("#test-div").append(newP);
 
-});
 
-$(document).on("click", "#movie-results", function () {
-
-    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long + "&sort=aggregate_rating";
-
-    var settings = {
-        "url": queryURL,
-        "method": "GET",
-        "headers": {
-            "user-key": "10bbf65b13ae378a2323cf3b8c13c49f"
-        }
-    }
-
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-        console.log("dogs");
-        $("#test-div").empty();
-    });
-
-});
 
 
 

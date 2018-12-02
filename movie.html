@@ -12,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
 </head>
 
 <body>
@@ -27,21 +29,18 @@
         <div class="row">
             <div class="twelve columns">
                 <select id="movie-dropdown">
-                    <option value="Test">Fantastic Beasts and where to ifnd htem</option>
+                    <option value="Test"></option>
                 </select>
             </div>
         </div>
 
         <div class="row movie-box">
             <div class="twelve columns movie-results">
-                <div class="theater-text">
-                    <p class="theater-title">AMC Regal Cinema 10</p>
-                    <p class="showtimes">10:45am 12:00pm 3:30pm</p>
+                <div class="theater-text" id="theater-show">
+                    <!-- <p class="theater-title">AMC Regal Cinema 10</p>
+                    <p class="showtimes">10:45am 12:00pm 3:30pm</p> -->
                 </div>
-                <div class="theater-text">
-                    <p class="theater-title">Theater Name</p>
-                    <p class="showtimes">Showtimes</p>
-                </div>
+                
             </div>
         </div>
 
@@ -51,7 +50,7 @@
 
     <footer></footer>
 
-    <script src="assets/javascript/app.js"></script>
+    <script src="assets/javascript/chris_movie.js"></script>
 </body>
 
 </html>
