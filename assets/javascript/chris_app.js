@@ -43,9 +43,6 @@ $("#submit").on("click", function () {
         url: "https://data.tmsapi.com/v1.1/movies/showings?startDate=" + date + "&zip=" + location + "&api_key=ebxmggvfebvqkmhczkwvzxk4",
         method: "GET"
     }).then(function (response) {
-        console.log(response);
-
-
         //prints 10 buttons of movie selections
         // var movieArray = response;
         // for (var i = 0; i < 10; i++) {
@@ -56,17 +53,21 @@ $("#submit").on("click", function () {
         //     var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
         //     $("#test-div").append(newButton);
         // }
-        var movieList = [];
-        for (var i = 0; i < 10; i++) {
-            // console.log(snapshot.val()[i]);
-            var title = snapshot.val()[i].title;
-            movieList[i] = title;
+        var movieList = response;
+        console.log(movieList);
 
-            for (var j = 0; j < snapshot.val()[i].showtimes.length; j++) {
-                var showDate = snapshot.val()[i].showtimes[j].dateTime.substr(0, 10);
-                var showTime = snapshot.val()[i].showtimes[j].dateTime.substr(11, 6);
-                var theatreID = snapshot.val()[i].showtimes[j].theatre.id;
-                var theatreName = snapshot.val()[i].showtimes[j].theatre.name;
+        for (var i = 0; i < movieList.length; i++) {
+
+            for (var j = 0; j < movieList[i].showtimes.length; j++) {
+                var title = movieList[i].title;
+                var showDate = movieList[i].showtimes[j].dateTime.substr(0, 10);
+                var showTime = movieList[i].showtimes[j].dateTime.substr(11, 6);
+                var theatreID = movieList[i].showtimes[j].theatre.id;
+                var theatreName = movieList[i].showtimes[j].theatre.name;
+                var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
+                $("#test-div").append(newButton);
+
+
 
                 // push the json data into firebase
                 database.ref('/movieTitle').push({
@@ -78,13 +79,18 @@ $("#submit").on("click", function () {
                 });
             }
         }; // end for(var i)
-        console.log(movieList);
+
         // push the json data of movie List into firebase
         database.ref('/movieList').push({
             movieList: movieList
         });
-
     });
+
+    function redirect() {
+        var url = "movie.html";
+        window.location.href = (url);
+    }
+    redirect();
 });
 
 
