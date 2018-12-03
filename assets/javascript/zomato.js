@@ -33,7 +33,8 @@ $(document).ready(function () {
             var price = response.nearby_restaurants[i].restaurant.price_range;
             var cuisine = response.nearby_restaurants[i].restaurant.cuisines;
             var newBox = '<div class="dinner-results"><p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price +'">'+restaurant+'</p><p class="dinner-cuisine">' + cuisine + '</p></div>';
-            $(".dinner").append(newBox);
+
+            $(".results").append(newBox);
             console.log(restaurant);
         }
 
