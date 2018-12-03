@@ -24,9 +24,10 @@ body {
 
 .header {
     background: #302a2a;
+    background-image: radial-gradient(#302a2a, #302a2a, #1f1b1b);
     color: #cbb7b7;
     text-align: center;
-    padding-top: 20px;
+    padding: 20px 0px 20px 0px;
     border-bottom: 3px solid #cbb7b7;
     font-family: "Oleo Script", "cursive";
     text-shadow: 3px 5px 2px #1b1717;
@@ -39,6 +40,10 @@ h1 {
     cursor: pointer;
     color: #cbb7b7;
     text-decoration: none;
+    margin-bottom: 0px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 a:-webkit-any-link {
@@ -179,7 +184,13 @@ input[type="text"] {
 }
 
 @media screen and (min-width: 400px) {
- 
+    #camera {
+        display: none;
+    }
+
+    #silverware {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 550px) { 
@@ -201,6 +212,18 @@ input[type="text"] {
 
     .dinner-box{
         height: 325px;
+    }
+}
+
+@media screen and (min-width: 630px) {
+    #camera {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    #silverware {
+        display: inline-block;
+        vertical-align: middle;
     }
 }
 
