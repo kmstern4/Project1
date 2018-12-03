@@ -199,25 +199,23 @@ input[type="text"] {
         border-bottom: 0px;
     }
 
-    /* .dinner-box{
-        height: 120%;
-    } */
+    .dinner-box{
+        height: 325px;
+    }
 }
 
 @media screen and (min-width: 750px) {
-    /* .dinner-box{
-        height: 100%;
-    } */
+    .dinner-box{
+        height: 275px;
+    }
 }
 
 @media screen and (min-width: 1000px) {
-    /* .dinner-box{
-        height: 75%;
-    } */
+    .dinner-box{
+        height: 250px;
+    }
 }
 
 @media screen and (min-width: 1200px){
-    /* .dinner-box{
-        height: 50%;
-    } */
+
 }
