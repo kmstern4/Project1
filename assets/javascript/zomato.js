@@ -32,10 +32,9 @@ $(document).ready(function () {
             var rating = response.nearby_restaurants[i].restaurant.user_rating.aggregate_rating;
             var price = response.nearby_restaurants[i].restaurant.price_range;
             var cuisine = response.nearby_restaurants[i].restaurant.cuisines;
-            var newBox = '<p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price +'">'+restaurant+'</p><p class="dinner-cuisine">' + cuisine + '</p><p class="dinner-cuisine">_________________________</p></div>';
-            $(".dinner-results").append(newBox);
+            var newBox = '<div class="dinner-results"><p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price +'">'+restaurant+'</p><p class="dinner-cuisine">' + cuisine + '</p></div>';
+            $(".results").append(newBox);
             console.log(restaurant);
-
         }
 
         $(".dinner-results").on("click", ".dinner-restaurant", function(){
@@ -45,24 +44,7 @@ $(document).ready(function () {
             $(".dinner-menu").attr("href", ($(this).attr("data-menu")));
             $(".dinner-rating").text("Rating: " + ($(this).attr("data-rating")));
             $(".dinner-price").text("Price Category: " + ($(this).attr("data-price")));
-            
-    
         });
-
-        // 
-        // $(".dinner-address").text(address);
-        // $(".dinner-menu").attr("href", menuLink);
-        // $(".dinner-rating").text("Rating: " + rating);
-        // $(".dinner-price").text("Price Category: " + price);
-        // $(".dinner-cuisine").text(cuisine);
-        // $(".dinner-container").append(newBox);
     });
 });
 
-/* <div class='six columns dinner-info'>
-<p class='dinner-name'>${restaurant}</p>
-<p class='dinner-address'>${address}</p>
-<p><a class='dinner-menu' href='${menuLink}' target='_blank'>Menu Link</a></p>
-<p class='dinner-rating'>${rating}</p>
-<p class='dinner-price'>${price}</p>
-</div></div>`); */
