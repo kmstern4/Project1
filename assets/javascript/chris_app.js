@@ -88,6 +88,7 @@ $("#submit").on("click", function () {
         url: "https://data.tmsapi.com/v1.1/movies/showings?startDate=" + date + "&zip=" + location + "&api_key=ebxmggvfebvqkmhczkwvzxk4",
         method: "GET"
     }).then(function (response) {
+
         console.log(response);
 
         var movieList = [];
@@ -113,16 +114,12 @@ $("#submit").on("click", function () {
                 });
             }
         }; // end for(var i)
-        console.log(movieList);
+
         // push the json data of movie List into firebase
         var userMovieListRef = sessionID + '/movieList';
         database.ref(userMovieListRef).push({
             movieList: movieList
         });
-        // when data trasaction is done, call seconde page
-        window.location.href = "movie.html"
-    });
-    
 });
 
 
