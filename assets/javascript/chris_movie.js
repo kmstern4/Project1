@@ -11,53 +11,55 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+// ================global variables====================
+var gotSessionID = false;
+var sessionID = "";
+// temp var
+// "/tmsapi/-LSbXj4EJyJWqK171SWX/response"
+sessionID = "-LSpIkqXljsYBSmnjDHH";
+var userMovieTitleRef = sessionID + '/movieTitle';
+var userMovieListRef = sessionID + '/movieList';
+var usertheatreShowing = sessionID + '/theatreShowing';
+
 
 window.onload = function (event) {
     console.log("loaded");
     event.preventDefault();
 
-    database.ref('/movieList').on("value", function (snapshot) {
-        // console.log(snapshot);
-        // console.log(snapshot.key);
-        // console.log(snapshot.val());
 
-        var query = firebase.database().ref(snapshot.key).orderByKey();
-        query.once("value")
-            .then(function (snapshot) {
-                snapshot.forEach(function (childSnapshot) {
-                    // key will be "ada" the first time and "alan" the second time
-                    var key = childSnapshot.key;
-                    // childData will be the actual contents of the child
-                    var childData = childSnapshot.val();
-                    // console.log(key);
-                    // console.log(childData);
-                    // console.log(childData.movieList[0]);
-                    for (var i = 0; i < childData.movieList.length; i++) {
-                        // if (i == 0) {
-                        //     $("#movie-dropdown").html($("<option>")
-                        //         .val("value")
-                        //         .html(childData.movieList[i])
-                        //     );
-                        // }
-                        // else {
-                        //     $("#movie-dropdown").append($("<option>")
-                        //         .val("value")
-                        //         .html(childData.movieList[i])
-                        //     );
-                        // }
-                        $("#movie-dropdown").append($("<option>")
-                            .val("value")
-                            .html(childData.movieList[i])
-                        );
+    var query = firebase.database().ref(userMovieListRef).orderByKey();
+    query.once("value")
+        .then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                // key will be "ada" the first time and "alan" the second time
+                var key = childSnapshot.key;
+                // childData will be the actual contents of the child
+                var childData = childSnapshot.val();
+                // console.log(key);
+                // console.log(childData);
+                // console.log(childData.movieList[0]);
+                for (var i = 0; i < childData.movieList.length; i++) {
+                    // if (i == 0) {
+                    //     $("#movie-dropdown").html($("<option>")
+                    //         .val("value")
+                    //         .html(childData.movieList[i])
+                    //     );
+                    // }
+                    // else {
+                    //     $("#movie-dropdown").append($("<option>")
+                    //         .val("value")
+                    //         .html(childData.movieList[i])
+                    //     );
+                    // }
+                    $("#movie-dropdown").append($("<option>")
+                        .val("value")
+                        .html(childData.movieList[i])
+                    );
 
-                    }
+                }
 
-                });
             });
-
-    }, function (errorObject) {
-        console.log("Errors handled: " + errorObject.code);
-    });
+        });
 
 }
 
@@ -65,15 +67,19 @@ window.onload = function (event) {
 $(document).on("change", "#movie-dropdown", function () {
     console.log("changed");
 
+     //remove previous data database.ref(usertheatreShowing).remove;
+     database.ref(sessionID).child("theatreShowing").remove();
+
     // selected value from dropdown list
     var thisMovie = $(this).children("option").filter(":selected").text();
     console.log("thisMovie: " + thisMovie);
 
     // databasemovieTitle
-    database.ref('/movieTitle').orderByChild("title").equalTo(thisMovie).on("value", function (snapshot) {
-        // console.log(snapshot);
-        // console.log(snapshot.key);
-        // console.log(snapshot.val());
+    database.ref(userMovieTitleRef).orderByChild("title").equalTo(thisMovie).on("value", function (snapshot) {
+        console.log("database userMovieTitleRef======================");
+        console.log(snapshot);
+        console.log(snapshot.key);
+        console.log(snapshot.val());
 
         // console.log("snapshot.key.length: " + snapshot.key.length);
 
@@ -84,10 +90,14 @@ $(document).on("change", "#movie-dropdown", function () {
             var key = childSnapshot.key;
             // childData will be the actual contents of the child
             var childData = childSnapshot.val();
-            // console.log(childData);
+            console.log("childData userMovieTitleRef======================");
+            console.log(childData);
+
+
+
 
             // push the data of specific movie for 'by theatre' into firebase
-            database.ref('/theatreShowing').push({
+            database.ref(usertheatreShowing).push({
                 title: childData.title,
                 theatreID: childData.theatreID,
                 theatreName: childData.theatreName,
@@ -99,14 +109,14 @@ $(document).on("change", "#movie-dropdown", function () {
             if (TheatreList.indexOf(childData.theatreID) == -1) {
                 TheatreList[TheatreList.length] = childData.theatreID;
             }
-            // console.log("TheatreList: " + TheatreList);
+            console.log("TheatreList: " + TheatreList);
         });
 
         // make showtime array by the title, by the theatre 
 
         for (var i = 0; i < TheatreList.length; i++) {
-            // retreive the data from '/theatreShowing'
-            database.ref('/theatreShowing').orderByChild("theatreID").equalTo(TheatreList[i]).on("value", function (snapshot) {
+            // retreive the data from user'/theatreShowing'
+            database.ref(usertheatreShowing).orderByChild("theatreID").equalTo(TheatreList[i]).on("value", function (snapshot) {
                 var newTheatreName = "";
                 var showList = [];
                 console.log("==============================");
@@ -121,7 +131,7 @@ $(document).on("change", "#movie-dropdown", function () {
                 console.log(newTheatreName);
                 console.log(showList);
                 var newRow = "<div class='theater-text'><p class='theater-title'>" + newTheatreName + "</p>"
-                    + "<p>" + showList.join('') + "</p></div>";
+                    + "<p>" + showList.join('   ') + "</p></div>";
 
                 if (i == 0) {
                     $("#theater-show").html(newRow);
@@ -132,33 +142,13 @@ $(document).on("change", "#movie-dropdown", function () {
 
 
             });
-            database.ref('/theatreShowing').remove;
         }
 
-        
     });
 
-
-
-
+       
+    // when data trasaction is done, call third page
+    // window.location.href = "dinner.html"
+    //  // database.ref(usertheatreShowing).remove;
+    //  database.ref(sessionID).child("theatreShowing").remove();
 });
-
-// $(document).on("click", "#movie-results", function () {
-
-//     var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long + "&sort=aggregate_rating";
-
-//     var settings = {
-//         "url": queryURL,
-//         "method": "GET",
-//         "headers": {
-//             "user-key": "10bbf65b13ae378a2323cf3b8c13c49f"
-//         }
-//     }
-
-//     $.ajax(settings).done(function (response) {
-//         console.log(response);
-//         console.log("dogs");
-//         $("#test-div").empty();
-//     });
-
-// });

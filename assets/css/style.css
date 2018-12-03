@@ -10,11 +10,16 @@
     box-sizing: border-box;
 }
 
+html{
+    height: 100%;
+}
+
 body {
     background-image: radial-gradient(#9a1212, #750e0e, #520909);
     font-family: "Montserrat", "sans-serif";
     background-repeat: no-repeat;
     background-attachment: fixed;
+    height: 100%;
 }
 
 .header {
@@ -45,6 +50,7 @@ a:-webkit-any-link {
     text-align: center;
     margin-top: 40px;
     padding: 15px;
+    height: 100%;
 }
 
 h2 {
@@ -141,6 +147,7 @@ input[type="text"] {
     margin: 30px 15% 0 15%;
     text-align: left;
     border:3px solid #cbb7b7;
+    border-top: 3px solid #cbb7b7;
     border-radius: 1px;
     box-shadow: 3px 3px 8px #1b1717;
 }
@@ -154,10 +161,11 @@ input[type="text"] {
     border-left: 1px solid #cbb7b7;
     margin-left: 0px;
     padding: 15px 15px 15px 30px;
+    height: 100%;
 }
 
 .dinner-name {
-    font-size: 18px;
+    font-size: 1.8rem;
     margin-bottom: 0px;
 }
 
@@ -168,4 +176,46 @@ input[type="text"] {
 
 .dinner-address {
     margin-top: 2.5rem;
+}
+
+@media screen and (min-width: 400px) {
+ 
+}
+
+@media screen and (min-width: 550px) { 
+    .dinner-name {
+        font-size: 1.5rem;
+    }
+
+    .dinner-info{
+        font-size: 1.3rem;
+    }
+
+    .dinner-results{
+        font-size: 1.3rem;
+    }
+
+    .dinner-results:last-child{
+        border-bottom: 0px;
+    }
+
+    .dinner-box{
+        height: 325px;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .dinner-box{
+        height: 275px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .dinner-box{
+        height: 250px;
+    }
+}
+
+@media screen and (min-width: 1200px){
+
 }
