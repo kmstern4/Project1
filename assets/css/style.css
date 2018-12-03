@@ -141,6 +141,7 @@ input[type="text"] {
     margin: 30px 15% 0 15%;
     text-align: left;
     border:3px solid #cbb7b7;
+    border-top: 3px solid #cbb7b7;
     border-radius: 1px;
     box-shadow: 3px 3px 8px #1b1717;
 }
@@ -148,6 +149,10 @@ input[type="text"] {
 .dinner-results {
     padding: 15px 15px 15px 30px;
     border-bottom: 1px solid #cbb7b7;
+}
+
+.dinner-results:last-child{
+    border-bottom: 0px;
 }
 
 .dinner-info {
@@ -168,4 +173,31 @@ input[type="text"] {
 
 .dinner-address {
     margin-top: 2.5rem;
+}
+
+
+@media screen and (min-width: 1200px){
+
+}
+
+@media screen and (min-width: 1175px){
+    .dinner-results{
+        
+    }
+}
+
+@media screen and (min-width: 1000px) {
+
+}
+
+@media screen and (min-width: 750px) {
+
+}
+
+@media screen and (min-width: 550px) {
+
+}
+
+@media screen and (min-width: 400px) {
+
 }
