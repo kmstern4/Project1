@@ -33,11 +33,12 @@ $(document).ready(function () {
             var price = response.nearby_restaurants[i].restaurant.price_range;
             var cuisine = response.nearby_restaurants[i].restaurant.cuisines;
             var newBox = '<div class="dinner-results"><p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price +'">'+restaurant+'</p><p class="dinner-cuisine">' + cuisine + '</p></div>';
+
             $(".results").append(newBox);
             console.log(restaurant);
         }
 
-        $(".dinner-results").on("click", ".dinner-restaurant", function(){
+        $(".dinner").on("click", ".dinner-restaurant", function(){
             console.log(this);
             $(".dinner-name").text($(this).attr("data-restaurant"));
             $(".dinner-address").text($(this).attr("data-address"));
