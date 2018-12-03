@@ -11,13 +11,58 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+// ================user connection====================
+// connectionsRef references a specific location in our database.
+// All of our connections will be stored in this directory.
+var connectionsRef = database.ref("/connections");
 
+// '.info/connected' is a special location provided by Firebase that is updated
+// every time the client's connection state changes.
+// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
+var connectedRef = database.ref(".info/connected");
+
+// When the client's connection state changes...
+connectedRef.on("value", function (snap) {
+
+    // If they are connected..
+    if (snap.val()) {
+
+        // Add user to the connections list.
+        // var con = connectionsRef.push({
+        //     dateAdded: firebase.database.ServerValue.TIMESTAMP
+        // });
+        var con = connectionsRef.push(true);
+  
+   
+        // Remove user from the connection list when they disconnect.
+        con.onDisconnect().remove();
+    }
+});
+
+// When first loaded or when the connections list changes...
+connectionsRef.orderByChild("dateAdded").limitToLast(1).on("child_added", function (snap) {
+    // console.log("database child_added");
+    console.log("================child_added==================");
+    console.log(snap.val());
+    console.log(snap.key);
+    if (!gotSessionID) {
+        gotSessionID = true;
+        sessionID = snap.key;
+    }
+    console.log("sessionID: " + sessionID);
+    // Handle the errors
+}, function (errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+});
+
+// ================global variables====================
 var geoLocation;
-var cinemaLocation;
 var lat;
 var long;
-var showTimes = [];
+var gotSessionID = false;
+var sessionID = "";
 
+// ============== program start ======================
 //on click function for submit button
 $("#submit").on("click", function () {
     var date = $("#input-date").val().trim();
@@ -45,17 +90,6 @@ $("#submit").on("click", function () {
     }).then(function (response) {
         console.log(response);
 
-
-        //prints 10 buttons of movie selections
-        // var movieArray = response;
-        // for (var i = 0; i < 10; i++) {
-        //     var filmName = movieArray[i].title;
-        //     var theater = movieArray[i].showtimes[0].theatre.name;
-        //     var showtime = movieArray[i].showtimes[0].dateTime;
-        //     showTimes.push(showtime);
-        //     var newButton = $("<button>").text(filmName).attr("id", theater).attr("data-date", showtime).addClass("film-button");
-        //     $("#test-div").append(newButton);
-        // }
         var movieList = [];
         for (var i = 0; i < 10; i++) {
             // console.log(snapshot.val()[i]);
@@ -69,7 +103,8 @@ $("#submit").on("click", function () {
                 var theatreName = snapshot.val()[i].showtimes[j].theatre.name;
 
                 // push the json data into firebase
-                database.ref('/movieTitle').push({
+                var userMovieTitleRef = sessionID + '/movieTitle';
+                database.ref(userMovieTitleRef).push({
                     title: title,
                     showDate: showDate,
                     showTime: showTime,
@@ -80,11 +115,14 @@ $("#submit").on("click", function () {
         }; // end for(var i)
         console.log(movieList);
         // push the json data of movie List into firebase
-        database.ref('/movieList').push({
+        var userMovieListRef = sessionID + '/movieList';
+        database.ref(userMovieListRef).push({
             movieList: movieList
         });
-
+        // when data trasaction is done, call seconde page
+        window.location.href = "movie.html"
     });
+    
 });
 
 
