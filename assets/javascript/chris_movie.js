@@ -12,11 +12,11 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // ================global variables====================
-var gotSessionID = false;
-var sessionID = "";
-// temp var
-// "/tmsapi/-LSbXj4EJyJWqK171SWX/response"
-sessionID = "-LSpIkqXljsYBSmnjDHH";
+var parameters = window.location.search.substring(1).split("=");
+//  console.log("sessionID",parameters[0],parameters[1]);
+
+var sessionID = parameters[1];
+console.log(sessionID);
 var userMovieTitleRef = sessionID + '/movieTitle';
 var userMovieListRef = sessionID + '/movieList';
 var usertheatreShowing = sessionID + '/theatreShowing';
@@ -24,6 +24,7 @@ var usertheatreShowing = sessionID + '/theatreShowing';
 
 window.onload = function (event) {
     console.log("loaded");
+    console.log("sessionID: " + sessionID);
     event.preventDefault();
 
 
@@ -67,8 +68,8 @@ window.onload = function (event) {
 $(document).on("change", "#movie-dropdown", function () {
     console.log("changed");
 
-     //remove previous data database.ref(usertheatreShowing).remove;
-     database.ref(sessionID).child("theatreShowing").remove();
+    //remove previous data database.ref(usertheatreShowing).remove;
+    database.ref(sessionID).child("theatreShowing").remove();
 
     // selected value from dropdown list
     var thisMovie = $(this).children("option").filter(":selected").text();
@@ -92,9 +93,6 @@ $(document).on("change", "#movie-dropdown", function () {
             var childData = childSnapshot.val();
             console.log("childData userMovieTitleRef======================");
             console.log(childData);
-
-
-
 
             // push the data of specific movie for 'by theatre' into firebase
             database.ref(usertheatreShowing).push({
@@ -146,9 +144,6 @@ $(document).on("change", "#movie-dropdown", function () {
 
     });
 
-       
-    // when data trasaction is done, call third page
-    // window.location.href = "dinner.html"
-    //  // database.ref(usertheatreShowing).remove;
-    //  database.ref(sessionID).child("theatreShowing").remove();
+    // when data trasaction is done, call third page with sessionID
+    window.location.href = "dinner.html?sessionID=" + sessionID;
 });
