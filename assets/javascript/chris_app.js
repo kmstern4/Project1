@@ -70,10 +70,16 @@ $("#submit").on("click", function () {
     }).then(function (response) {
         console.log(response);
         // console.log("sessionID tmsapi ajax: " + sessionID);
-        // console.log("userMovieListRef: " + userMovieListRef);
+        console.log("userMovieListRef: " + userMovieListRef);
         var movieList = [];
+        // console.log(response.length);
+        
+        if (movieLimit> response.length) {
+            movieLimit = response.length;
+        };
+
         for (var i = 0; i < movieLimit; i++) {
-            // console.log(response.val()[i]);
+            console.log(response[i]);
             var title = response[i].title;
             movieList[i] = title;
             console.log("in the array: " + movieList);
