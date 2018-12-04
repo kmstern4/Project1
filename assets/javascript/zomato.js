@@ -58,6 +58,7 @@ $(document).ready(function () {
             $(".dinner-name").text($(this).attr("data-restaurant"));
             $(".dinner-address").text($(this).attr("data-address"));
             $(".dinner-menu").attr("href", ($(this).attr("data-menu")));
+            $(".menu-link").text("Menu Link");
             $(".dinner-rating").text("Rating: " + ($(this).attr("data-rating")));
             $(".dinner-price").text("Price Category: " + ($(this).attr("data-price")));
         });
