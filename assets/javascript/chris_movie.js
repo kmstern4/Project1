@@ -29,7 +29,6 @@ console.log(sessionID);
 console.log(lat);
 console.log(long);
 
-// sessionID = "q2mzls75791054212";
 var userMovieTitleRef = sessionID + '/movieTitle';
 var userMovieListRef = sessionID + '/movieList';
 var usertheatreShowing = sessionID + '/theatreShowing';
@@ -159,12 +158,14 @@ $(document).on("change", "#movie-dropdown", function () {
 });
 
 
-// add train button clicked
-$("#theater-title").on("click", function (event) {
+// user select the theater call dinner.html
+$("div.theater-text").on("click", ".theater-title", function (event) {
     event.preventDefault();
     console.log("theater selected. call the dinner.html");
+    //remove data from database.ref(sessionID).remove;
+    database.ref(sessionID).remove();
 
- // when data trasaction is done, call third page with sessionID
- window.location.href = "dinner.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
+    // when data trasaction is done, call third page with sessionID
+    window.location.href = "dinner.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
 
 });
