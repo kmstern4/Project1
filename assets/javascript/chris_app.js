@@ -32,6 +32,13 @@ var usertheatreShowing = sessionID + "/theatreShowing";
 console.log(userMovieTitleRef);
 console.log(userMovieListRef);
 console.log(usertheatreShowing);
+
+// ===================function =================
+function waitingCall() {
+// when data trasaction is done, call seconde page with sessionID
+window.location.href = "movie.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
+};
+
 // ============== event start ======================
 //on click function for submit button
 $("#submit").on("click", function () {
@@ -63,10 +70,16 @@ $("#submit").on("click", function () {
     }).then(function (response) {
         console.log(response);
         // console.log("sessionID tmsapi ajax: " + sessionID);
-        // console.log("userMovieListRef: " + userMovieListRef);
+        console.log("userMovieListRef: " + userMovieListRef);
         var movieList = [];
+        // console.log(response.length);
+        
+        if (movieLimit> response.length) {
+            movieLimit = response.length;
+        };
+
         for (var i = 0; i < movieLimit; i++) {
-            // console.log(response.val()[i]);
+            console.log(response[i]);
             var title = response[i].title;
             movieList[i] = title;
             console.log("in the array: " + movieList);
@@ -92,8 +105,12 @@ $("#submit").on("click", function () {
         database.ref(userMovieListRef).push({
             movieList: movieList
         });
+
+            myVar = setTimeout(waitingCall, 1* 1000);   
+            // clearTimeout(myVar);
+
         // when data trasaction is done, call seconde page with sessionID
-        window.location.href = "movie.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
+        // window.location.href = "movie.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
     });
 
 
