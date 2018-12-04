@@ -8,10 +8,25 @@
 
 //on click function for submit button
 $(document).ready(function () {
+
+    var parameters = window.location.search.substring(1).split("&");
+    console.log(parameters[0]);
+    console.log(parameters[1]);
+    console.log(parameters[2]);
+
+
+    var sessionID = parameters[0].substring(0).split("=");
+    sessionID = sessionID[1];
+    var lat = parameters[1].substring(0).split("=");
+    lat = lat[1];
+    var long = parameters[2].substring(0).split("=");
+    long = long[1];
     // var location = $("#input-location").val().trim();
     // console.log(location);
 
-    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=39.742043&lon=-104.991531";
+    // var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=39.742043&lon=-105.991531";
+
+    var queryURL = "https://developers.zomato.com/api/v2.1/geocode?lat=" + lat + "&lon=" + long;
 
     var settings = {
         "url": queryURL,
@@ -32,13 +47,13 @@ $(document).ready(function () {
             var rating = response.nearby_restaurants[i].restaurant.user_rating.aggregate_rating;
             var price = response.nearby_restaurants[i].restaurant.price_range;
             var cuisine = response.nearby_restaurants[i].restaurant.cuisines;
-            var newBox = '<div class="dinner-results"><p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price +'">'+restaurant+'</p><p class="dinner-cuisine">' + cuisine + '</p></div>';
+            var newBox = '<div class="dinner-results"><p class="dinner-restaurant" data-restaurant="' + restaurant + '" data-menu=' + menuLink + ' data-address="' + address + '" data-rating="' + rating + '" data-price="' + price + '">' + restaurant + '</p><p class="dinner-cuisine">' + cuisine + '</p></div>';
 
             $(".results").append(newBox);
             console.log(restaurant);
         }
 
-        $(document).on("click", ".dinner-restaurant", function(){
+        $(document).on("click", ".dinner-restaurant", function () {
             console.log(this);
             $(".dinner-name").text($(this).attr("data-restaurant"));
             $(".dinner-address").text($(this).attr("data-address"));
