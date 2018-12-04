@@ -159,7 +159,7 @@ $(document).on("change", "#movie-dropdown", function () {
 
 
 // user select the theater call dinner.html
-$("div.theater-text").on("click", ".theater-title", function (event) {
+$(document).on("click", ".theater-text", function (event) {
     event.preventDefault();
     console.log("theater selected. call the dinner.html");
     //remove data from database.ref(sessionID).remove;
