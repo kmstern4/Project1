@@ -38,7 +38,7 @@ $(document).ready(function () {
             console.log(restaurant);
         }
 
-        $(".dinner").on("click", ".dinner-restaurant", function(){
+        $(document).on("click", ".dinner-restaurant", function(){
             console.log(this);
             $(".dinner-name").text($(this).attr("data-restaurant"));
             $(".dinner-address").text($(this).attr("data-address"));
