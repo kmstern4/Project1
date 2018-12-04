@@ -4,6 +4,7 @@ var lat;
 var long;
 var gotSessionID = false;
 var sessionID = "";
+var movieLimit = 10;
 
 
 // Initialize Firebase
@@ -50,21 +51,25 @@ $("#submit").on("click", function () {
         lat = response.results[0].geometry.location.lat;
         long = response.results[0].geometry.location.lng;
         geoLocation = lat + ";" + long;
+        console.log("lat: " + lat + " long: " + long);
     })
 
-    //This is the ajax call on gracenote API using the location variables
+    // =========================tmsapi API===========================================
+    // This is the ajax call on gracenote API using the location variables
+    // =========================tmsapi API===========================================
     $.ajax({
         url: "https://data.tmsapi.com/v1.1/movies/showings?startDate=" + date + "&zip=" + location + "&api_key=ebxmggvfebvqkmhczkwvzxk4",
         method: "GET"
     }).then(function (response) {
         console.log(response);
-        console.log("sessionID tmsapi ajax: " + sessionID);
-        console.log("userMovieListRef: " + userMovieListRef);
+        // console.log("sessionID tmsapi ajax: " + sessionID);
+        // console.log("userMovieListRef: " + userMovieListRef);
         var movieList = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < movieLimit; i++) {
             // console.log(response.val()[i]);
             var title = response[i].title;
             movieList[i] = title;
+            console.log("in the array: " + movieList);
 
             for (var j = 0; j < response[i].showtimes.length; j++) {
                 var showDate = response[i].showtimes[j].dateTime.substr(0, 10);
@@ -88,8 +93,49 @@ $("#submit").on("click", function () {
             movieList: movieList
         });
         // when data trasaction is done, call seconde page with sessionID
-        window.location.href = "movie.html?sessionID=" + sessionID;
+        window.location.href = "movie.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
     });
+
+
+    // // when the tmsapi API touch the limit, use firebase pre-stored data from tmsapi API
+    // var tmsapiRef = database.ref("/tmsapi/-LSbXj4EJyJWqK171SWX/response").once("value", function (snapshot) {
+    //     console.log(snapshot.val());
+    //     var movieList = [];
+    //     // differnet title of movie
+    //     for (var i = 0; i < movieLimit; i++) {
+    //         // console.log(snapshot.val()[i]);
+    //         var title = snapshot.val()[i].title.trim();
+
+    //         movieList[i] = title;
+
+    //         for (var j = 0; j < snapshot.val()[i].showtimes.length; j++) {
+    //             var showDate = snapshot.val()[i].showtimes[j].dateTime.substr(0, 10);
+    //             var showTime = snapshot.val()[i].showtimes[j].dateTime.substr(11, 6);
+    //             var theatreID = snapshot.val()[i].showtimes[j].theatre.id;
+    //             var theatreName = snapshot.val()[i].showtimes[j].theatre.name;
+
+    //             // push the json data into firebase
+    //             database.ref(userMovieTitleRef).push({
+    //                 title: title,
+    //                 showDate: showDate,
+    //                 showTime: showTime,
+    //                 theatreID: theatreID,
+    //                 theatreName: theatreName
+    //             });
+    //         }
+    //     }; // end for(var i)
+    //     console.log(movieList);
+    //     // push the json data of movie List into firebase
+    //     var userMovieListRef = sessionID + '/movieList';
+    //     database.ref(userMovieListRef).push({
+    //         movieList: movieList
+    //     });
+
+    // });
+    // // when data trasaction is done, call seconde page
+    // window.location.href = "movie.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
+
+
 
 });
 
