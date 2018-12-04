@@ -12,19 +12,32 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // ================global variables====================
-var parameters = window.location.search.substring(1).split("=");
-//  console.log("sessionID",parameters[0],parameters[1]);
+// get parameters from previous page
+var parameters = window.location.search.substring(1).split("&");
+//  console.log(parameters[0]);
+//  console.log(parameters[1]);
+//  console.log(parameters[2]);
 
-var sessionID = parameters[1];
+var sessionID = parameters[0].substring(0).split("=");
+sessionID = sessionID[1];
+var lat = parameters[1].substring(0).split("=");
+lat = lat[1];
+var long = parameters[2].substring(0).split("=");
+long = long[1];
+
 console.log(sessionID);
+console.log(lat);
+console.log(long);
+
+// sessionID = "q2mzls75791054212";
 var userMovieTitleRef = sessionID + '/movieTitle';
 var userMovieListRef = sessionID + '/movieList';
 var usertheatreShowing = sessionID + '/theatreShowing';
 
 
 window.onload = function (event) {
-    console.log("loaded");
-    console.log("sessionID: " + sessionID);
+    // console.log("loaded");
+    // console.log("sessionID: " + sessionID);
     event.preventDefault();
 
 
@@ -64,9 +77,9 @@ window.onload = function (event) {
 
 }
 
-//testing: this is to append the 2nd stage where movie buttons are replaced by selected movies, associated theater and show times, still needs work.
+// when user select the movie from the dropdown list
 $(document).on("change", "#movie-dropdown", function () {
-    console.log("changed");
+    // console.log("changed");
 
     //remove previous data database.ref(usertheatreShowing).remove;
     database.ref(sessionID).child("theatreShowing").remove();
@@ -78,8 +91,8 @@ $(document).on("change", "#movie-dropdown", function () {
     // databasemovieTitle
     database.ref(userMovieTitleRef).orderByChild("title").equalTo(thisMovie).on("value", function (snapshot) {
         console.log("database userMovieTitleRef======================");
-        console.log(snapshot);
-        console.log(snapshot.key);
+        // console.log(snapshot);
+        // console.log(snapshot.key);
         console.log(snapshot.val());
 
         // console.log("snapshot.key.length: " + snapshot.key.length);
@@ -111,13 +124,12 @@ $(document).on("change", "#movie-dropdown", function () {
         });
 
         // make showtime array by the title, by the theatre 
-
         for (var i = 0; i < TheatreList.length; i++) {
-            // retreive the data from user'/theatreShowing'
+            // retreive the data from user'/usertheatreShowing'
             database.ref(usertheatreShowing).orderByChild("theatreID").equalTo(TheatreList[i]).on("value", function (snapshot) {
                 var newTheatreName = "";
                 var showList = [];
-                console.log("==============================");
+                console.log("============usertheatreShowing==================");
                 console.log(snapshot.val());
 
                 snapshot.forEach(function (childSnapshot) {
@@ -126,10 +138,10 @@ $(document).on("change", "#movie-dropdown", function () {
                     showList[showList.length] = childSnapshot.val().showTime;
                 });
 
-                console.log(newTheatreName);
-                console.log(showList);
+                // console.log(newTheatreName);
+                // console.log(showList);
                 var newRow = "<div class='theater-text'><p class='theater-title'>" + newTheatreName + "</p>"
-                    + "<p>" + showList.join('   ') + "</p></div>";
+                    + "<p class='showtimes'>" + showList.join('   ') + "</p></div>";
 
                 if (i == 0) {
                     $("#theater-show").html(newRow);
@@ -144,6 +156,15 @@ $(document).on("change", "#movie-dropdown", function () {
 
     });
 
-    // when data trasaction is done, call third page with sessionID
-    window.location.href = "dinner.html?sessionID=" + sessionID;
+});
+
+
+// add train button clicked
+$("#theater-title").on("click", function (event) {
+    event.preventDefault();
+    console.log("theater selected. call the dinner.html");
+
+ // when data trasaction is done, call third page with sessionID
+ window.location.href = "dinner.html?sessionID=" + sessionID + "&lat=" + lat + "&long=" + long;
+
 });
