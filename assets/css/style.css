@@ -236,13 +236,13 @@ input[type="text"] {
 
 @media screen and (min-width: 750px) {
     .dinner-box{
-        height: 275px;
+        height: 300px;
     }
 }
 
 @media screen and (min-width: 1000px) {
     .dinner-box{
-        height: 250px;
+        height: 300px;
     }
 }
 
